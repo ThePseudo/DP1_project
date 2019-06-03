@@ -13,7 +13,7 @@ getPageBase("PlaneR registration");
 <div style="margin-top:40px" class="row">
     <div class="columnSmaller"></div>
     <a style="text-align:right;" class="columnSmall" >E-mail:</a>
-    <input type="emailhaha" name="Email" class="columnMedium" id="EMAIL">
+    <input type="email" name="Email" class="columnMedium" id="EMAIL">
 </div>
 <div style="margin-top:40px" class="row">
     <div class="columnSmaller"></div>

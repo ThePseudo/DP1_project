@@ -48,6 +48,7 @@ function getPageBase($title)
         <script>
             $(document).ready(function() {
                 $(window).resize();
+                $("#main").css("display", "block");
                 if(!navigator.cookieEnabled) {
                     var invite = 
             "<h1 style=\"text-align:center;margin-top:50px\">You don't have cookies enabled.</h1>" + 
@@ -87,11 +88,6 @@ function getPageBase($title)
             } 
         </script>
         <noscript>
-        <style type="text/css">
-            .main {
-                display:none;
-            }
-        </style>
         <div class="noscriptmsg">
             <h1 style="text-align:center;margin-top:50px">You don't have Javascript enabled.</h1>
             <p style="text-align:center">Please, enable Javascript to enjoy the website experience</p>
