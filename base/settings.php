@@ -1,9 +1,12 @@
 <?php
 
 # DB settings
-$dbhost = "localhost";
-$dbusername="s265340";
-$dbpassword="ateroyst";
+$dbhost = "mysql:host=localhost;dbname:plane";
+$dbusername = "s265340";
+$dbpassword = "ateroyst";
+
+# session timeout: 2 mins in sec
+$timeOut = 120;
 
 #PLANE settings
 $seatsPerRow = 6;

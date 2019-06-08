@@ -1,6 +1,21 @@
 <?php
-function getPageBase($title) 
+require_once( realpath($_SERVER["DOCUMENT_ROOT"]) . "/base/settings.php");
+function getPageBase($title)
 {
+    $loggedIn = false;
+    session_start();
+    if(isset($_SESSION['last_update'])) {
+        $time = $_SERVER['REQUEST_TIME'];
+        if($time - $_SESSION['last_update'] > $timeOut) {
+            session_unset();
+            session_destroy();
+            session_start();
+        }
+        else {
+            $_SESSION['LAST_ACTIVITY'] = $time;
+            $loggedIn = true;
+        }
+    }
     ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -25,24 +40,48 @@ function getPageBase($title)
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<!-- jQuery -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        
+        <!-- Bootstrap JavaScript -->
+        <!--
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        -->
     </head>
     <body>
     
         <h1 class="header">
             PlaneR
         </h1>
-        <span id="navOpener" class="openNavButton visibleIfSmall" onclick="openNav()">&#9776;</span>
+        <span id="navOpener" class="openNavButton visibleIfSmall" onclick="openNav()">&#9776;
+        </span>
 
         <!-- Use any element to open the sidenav -->
         <div class="sidenav" id="sidenav">
-        <a href="javascript:void(0)" class="closebtn visibleIfSmall" onclick="closeNav()">&times;</a>
-            <a href=<?php echo "\"//" . $_SERVER['SERVER_NAME'] . "\"" ?>>Home</a>
-            <a href=<?php echo "\"//" . $_SERVER['SERVER_NAME'] . "/login.php\"" ?>>Log in</a>
-            <a href=<?php echo "\"//" . $_SERVER['SERVER_NAME'] . "/registration.php\"" ?>>Registration</a>
+        <a href="javascript:void(0)" class="closebtn visibleIfSmall" 
+        onclick="closeNav()">&times;</a>
+        <?php
+        if(!$loggedIn) {
+            ?>
+            <a href=<?php echo "\"//" . $_SERVER['SERVER_NAME'] . "\"" ?>>
+            Home</a>
+            <a href=<?php echo "\"//" . $_SERVER['SERVER_NAME'] . "/login.php\"" ?>>
+            Log in</a>
+            <a href=<?php echo "\"//" . $_SERVER['SERVER_NAME'] . "/registration.php\"" ?>>
+            Registration</a>
+            <?php
+        }
+        else {
+            ?>
+            <a href=<?php echo "\"//" . $_SERVER['SERVER_NAME'] . "\"" ?>>
+            Home</a>
+            <a href=<?php echo "\"//" . $_SERVER['SERVER_NAME'] . "/personal.php\"" ?>>
+            Personal page</a>
+            <a href=<?php echo "\"//" . $_SERVER['SERVER_NAME'] . 
+            "/actions/action_logout.php\"" ?> style="bottom:0px">
+            Logout</a>
+            <?php
+        }
+        ?>
         </div>
 
         <script>
@@ -51,8 +90,8 @@ function getPageBase($title)
                 $("#main").css("display", "block");
                 if(!navigator.cookieEnabled) {
                     var invite = 
-            "<h1 style=\"text-align:center;margin-top:50px\">You don't have cookies enabled.</h1>" + 
-            "<p style=\"text-align:center\">Please, enable cookies to enjoy the website experience</p>"
+"<h1 style=\"text-align:center;margin-top:50px\">You don't have cookies enabled.</h1>" + 
+"<p style=\"text-align:center\">Please, enable cookies to enjoy the website experience</p>"
                     document.getElementById("main").innerHTML = invite;
                 }
             })  
@@ -73,14 +112,17 @@ function getPageBase($title)
                 }
             });
 
-            /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+            /* Set the width of the side navigation to 250px and the left margin 
+            of the page content to 250px and add a black background color to body */
             function openNav() {
-                document.getElementById("sidenav").style.width = "40%";
-                document.getElementById("main").style.marginLeft = "40%";
+                document.getElementById("sidenav").style.width = "100%";
+                // used if we want to move the content of the main
+                //document.getElementById("main").style.marginLeft = "80%";
                 document.getElementById("navOpener").style.marginLeft = "-2000px";
             }
 
-/* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+            /* Set the width of the side navigation to 0 and the left margin 
+            of the page content to 0, and the background color of body to white */
             function closeNav() {
                 document.getElementById("sidenav").style.width = "0px";
                 document.getElementById("main").style.marginLeft = "0px";
@@ -89,8 +131,10 @@ function getPageBase($title)
         </script>
         <noscript>
         <div class="noscriptmsg">
-            <h1 style="text-align:center;margin-top:50px">You don't have Javascript enabled.</h1>
-            <p style="text-align:center">Please, enable Javascript to enjoy the website experience</p>
+            <h1 style="text-align:center;margin-top:50px">
+            You don't have Javascript enabled.</h1>
+            <p style="text-align:center">
+            Please, enable Javascript to enjoy the website experience</p>
         </div>
         </noscript>
         <div id="main" class="main">

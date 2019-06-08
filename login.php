@@ -15,12 +15,24 @@ getPageBase("PlaneR login");
     <a style="text-align:right;" class="columnSmall">Password:</a>
     <input type="password" name="Password" class="columnMedium" id="PASSWORD">
 </div>
-<div class="columnMedium"></div>
-<div class="columnSmaller"></div>
-<div class="columnSmaller"></div>
 
-<input type="submit" value="Log in" class="button" style="margin-top:20px;" id="SUBMIT_BTN">
+<div style="margin-top:10px;" class="row" >
+    <div class="columnSmaller"></div>
+    <div class="columnSmaller"></div>
 
+    <p style="color:red;display:none;" class="columnBig"id="error-msg"> Login failed. 
+    Try with another email or password
+    </p>
+</div>
+
+<div class="row">
+    <div class="columnMedium"></div>
+    <div class="columnSmaller"></div>
+    <div class="columnSmaller"></div>
+    
+    <input type="submit" value="Log in" disabled="true"
+    class="button" style="margin-top:20px;" id="SUBMIT_BTN">
+</div>
 </form> 
 
 <script>
@@ -28,8 +40,7 @@ var emailOK = false;
 var passwordOK = false;
 $(document).ready(function () {
     if($("#EMAIL").val() !== "") {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-        .test(document.getElementById("EMAIL").value)) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($(this).val())) {
             emailOK = true;
         }
         else {
@@ -40,6 +51,15 @@ $(document).ready(function () {
         emailOK = false;
     }
     document.getElementById("SUBMIT_BTN").disabled = !(emailOK && passwordOK);
+    
+    //check on login success
+    var search = window.location.search;
+    console.log(search);
+    search = search.slice(1);
+    if(search === "message=fail") {
+        $("#error-msg").css("display", "block");
+    }
+
 });
 $("#EMAIL").on("input", function () {
     if($("#EMAIL").val() !== "") {

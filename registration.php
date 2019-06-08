@@ -20,11 +20,22 @@ getPageBase("PlaneR registration");
     <a style="text-align:right;" class="columnSmall" >Password:</a>
     <input type="password" name="Password" class="columnMedium" id="PASSWORD">
 </div>
-<div class="columnMedium"></div>
-<div class="columnSmaller"></div>
-<div class="columnSmaller"></div>
+<div style="margin-top:10px;" class="row" >
+    <div class="columnSmaller"></div>
+    <div class="columnSmaller"></div>
 
-<input type="submit" value="Register" class="button" style="margin-top:20px;" id="SUBMIT_BTN">
+    <p style="color:red;" class="columnBig"id="error-msg">Your password must contain at least 1 uppercase
+     letter or a number in addition to one lowercase letter.
+    </p>
+</div>
+<div class="row">
+
+    <div class="columnMedium"></div>
+    <div class="columnSmaller"></div>
+    <div class="columnSmaller"></div>
+    <input type="submit" value="Register" disabled="true"
+    class="button" style="margin-top:0px;" id="SUBMIT_BTN">
+</div>
 
 </form> 
 
@@ -85,6 +96,14 @@ $("#PASSWORD").on("input", function () {
         passwordOK = false;
     }
     document.getElementById("SUBMIT_BTN").disabled = !(emailOK && passwordOK && userOK);
+    if(passwordOK) {
+        $("#error-msg").slideUp(500);
+    }
+    else {
+        $("#error-msg").slideDown(500);
+
+
+    }
 });
 </script>
 
