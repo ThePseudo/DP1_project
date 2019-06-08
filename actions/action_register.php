@@ -10,6 +10,12 @@ if (!isset($email) || !isset($password) || !isset($username)) {
     die;
 }
 
+#sanitize
+$email = htmlentities($email, ENT_HTML5, "UTF-8");
+$password = htmlentities($password, ENT_HTML5, "UTF-8");
+$username = htmlentities($username, ENT_HTML5, "UTF-8");
+
+# encrypt
 $password = password_hash($password, PASSWORD_DEFAULT);
 
 if (!preg_match('/^(.)*(?=.*[a-z])(?=.*([0-9]|[A-Z]))(.)*$/', $password)) {
@@ -20,30 +26,29 @@ if (!preg_match('/^(.)*(?=.*[a-z])(?=.*([0-9]|[A-Z]))(.)*$/', $password)) {
 try {
     $conn = new PDO($dbhost, $dbusername, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Connection error: " . $e->getMessage();
+}
+try {
     $stmt = $conn->prepare("INSERT INTO plane.users(nickname, email, password) VALUES (:user, :email, :password);");
     $stmt->execute([":email" => $email, ":user" => $username, ":password" => $password]);
     $user = $conn->lastInsertId();
 } catch (PDOException $e) {
-    echo "Database error: " . $e->getMessage();
+    header("Location: ../registration.php?message=" . urlencode("the user already exists"));
 }
 
 try {
-    $stmt = $conn->prepare("SELECT * FROM plane.users WHERE email = :email");
-    $stmt->execute([":email" => $email]);
+    $stmt = $conn->prepare("SELECT * FROM plane.users WHERE user = :user");
+    $stmt->execute([":user" => $user]);
     $user = $stmt->fetch();
     $stmt = null;
 } catch (PDOException $e) {
     echo "Database error: " . $e->getMessage();
+    die;
 }
 
-if ($user == null) {
-    header("Location: " . "../login.php?message=fail");
-} else {
-    if (password_verify($password, $user["password"])) {
-        session_start();
-        $time = $_SERVER['REQUEST_TIME'];
-        $_SESSION['id'] = $user['id'];
-        setcookie("time", time(), 0, "/");
-        header("Location: ../");
-    }
-}
+session_start();
+$time = $_SERVER['REQUEST_TIME'];
+$_SESSION['id'] = $user['id'];
+setcookie("time", time(), 0, "/");
+header("Location: ../");

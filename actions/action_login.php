@@ -8,6 +8,10 @@ if (!isset($email) || !isset($password)) {
     die;
 }
 
+$email = htmlentities($email, ENT_HTML5, "UTF-8");
+$password = htmlentities($password, ENT_HTML5, "UTF-8");
+
+
 try {
     $conn = new PDO($dbhost, $dbusername, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

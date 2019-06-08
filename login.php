@@ -51,7 +51,6 @@ $getPageBase("PlaneR login");
 
         //check on login success
         var search = window.location.search;
-        console.log(search);
         search = search.slice(1);
         if (search === "message=fail") {
             $("#error-msg").css("display", "block");

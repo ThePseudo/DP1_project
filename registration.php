@@ -36,6 +36,14 @@ $getPageBase("PlaneR registration");
         <input type="submit" value="Register" disabled class="button" style="margin-top:0px;" id="SUBMIT_BTN">
     </div>
 
+    <div style="margin-top:10px;" class="row">
+        <div class="columnSmaller"></div>
+        <div class="columnSmaller"></div>
+
+        <p style="color:red;" class="columnBig" id="error-register"></p>
+    </div>
+    <div class="row">
+
 </form>
 
 <script>
@@ -43,6 +51,14 @@ $getPageBase("PlaneR registration");
     var passwordOK = false;
     var userOK = false;
     $(document).ready(function() {
+        var url = window.location.search;
+        url = url.slice(1);
+        if (url.slice(0, 8) === "message=") {
+            url = url.slice(8);
+            url = url.split("+").join(" ")
+            $("#error-register").html("Error: " + url);
+        }
+
         // check on email
         if ($("#EMAIL").val() !== "") {
             if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($(this).val())) {
