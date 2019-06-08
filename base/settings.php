@@ -1,7 +1,7 @@
 <?php
 
 # DB settings
-$dbhost = "mysql:host=localhost;dbname:plane";
+$dbhost = "mysql:host=localhost;dbname=plane";
 $dbusername = "s265340";
 $dbpassword = "ateroyst";
 
@@ -16,4 +16,3 @@ $rows = 10;
 # it is reasonable, since it's a plane
 # use chr($baseChar + num); to retrieve the letter
 $baseChar = ord('A');
-?>
