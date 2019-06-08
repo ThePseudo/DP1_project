@@ -21,10 +21,12 @@ try {
     $stmt = null;
 } catch (PDOException $e) {
     echo "Database error: " . $e->getMessage();
+    die;
 }
 
 if ($user == null) {
     header("Location: " . "../login.php?message=fail");
+    die;
 } else {
     if (password_verify($password, $user["password"])) {
         session_start();
