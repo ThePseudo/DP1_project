@@ -28,6 +28,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Connection error: " . $e->getMessage();
+    die;
 }
 try {
     $stmt = $conn->prepare("INSERT INTO plane.users(nickname, email, password) VALUES (:user, :email, :password);");
@@ -36,6 +37,7 @@ try {
     $stmt = null;
 } catch (PDOException $e) {
     header("Location: ../registration.php?message=" . urlencode("the user already exists"));
+    die;
 }
 
 try {
