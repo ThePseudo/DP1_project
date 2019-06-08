@@ -33,12 +33,13 @@ try {
     $stmt = $conn->prepare("INSERT INTO plane.users(nickname, email, password) VALUES (:user, :email, :password);");
     $stmt->execute([":email" => $email, ":user" => $username, ":password" => $password]);
     $user = $conn->lastInsertId();
+    $stmt = null;
 } catch (PDOException $e) {
     header("Location: ../registration.php?message=" . urlencode("the user already exists"));
 }
 
 try {
-    $stmt = $conn->prepare("SELECT * FROM plane.users WHERE user = :user");
+    $stmt = $conn->prepare("SELECT * FROM plane.users WHERE id = :user");
     $stmt->execute([":user" => $user]);
     $user = $stmt->fetch();
     $stmt = null;
