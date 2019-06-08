@@ -1,6 +1,6 @@
 <?php
 require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/base/baseTemplate.php");
-getPageBase("PlaneR registration");
+$getPageBase("PlaneR registration");
 ?>
 <h1 class="title">Registration</h1>
 

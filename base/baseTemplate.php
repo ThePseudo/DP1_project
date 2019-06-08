@@ -1,17 +1,16 @@
 <?php
 require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/base/settings.php");
-function getPageBase($title)
-{
+$getPageBase = function ($title) use ($timeOut) {
     $loggedIn = false;
     session_start();
-    if (isset($_SESSION['last_update'])) {
+    if (isset($_COOKIE['time'])) {
         $time = $_SERVER['REQUEST_TIME'];
-        if ($time - $_SESSION['last_update'] > $timeOut) {
+        if ($time - $_COOKIE['time'] > $timeOut) {
             session_unset();
             session_destroy();
             session_start();
         } else {
-            $_SESSION['LAST_ACTIVITY'] = $time;
+            $_COOKIE['time'] = $time;
             $loggedIn = true;
         }
     }
@@ -30,9 +29,9 @@ function getPageBase($title)
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            <![endif]-->
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -128,7 +127,7 @@ function getPageBase($title)
         <div id="main" class="main">
 
         <?php
-    }
+    };
 
     function closeHTML()
     {
