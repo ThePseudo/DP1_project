@@ -23,8 +23,26 @@ try {
     $stmt = $conn->prepare("INSERT INTO plane.users(nickname, email, password) VALUES (:user, :email, :password);");
     $stmt->execute([":email" => $email, ":user" => $username, ":password" => $password]);
     $user = $conn->lastInsertId();
-    $stmt = null;
-    $conn = null;
 } catch (PDOException $e) {
     echo "Database error: " . $e->getMessage();
+}
+
+try {
+    $stmt = $conn->prepare("SELECT * FROM plane.users WHERE email = :email");
+    $stmt->execute([":email" => $email]);
+    $user = $stmt->fetch();
+    $stmt = null;
+} catch (PDOException $e) {
+    echo "Database error: " . $e->getMessage();
+}
+
+if ($user == null) {
+    header("Location: " . "../login.php?message=fail");
+} else {
+    if (password_verify($password, $user["password"])) {
+        session_start();
+        $time = $_SERVER['REQUEST_TIME'];
+        $_SESSION['id'] = $user['id'];
+        setcookie("time", $time, time() + $timeOut);
+    }
 }

@@ -26,6 +26,6 @@ if ($user == null) {
         session_start();
         $time = $_SERVER['REQUEST_TIME'];
         $_SESSION['id'] = $user['id'];
-        $_SESSION['last_update'] = $time;
+        setcookie("time", $time, time() + $timeOut);
     }
 }
