@@ -3,15 +3,16 @@ require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/base/settings.php");
 $getPageBase = function ($title) use ($timeOut) {
     $loggedIn = false;
     session_start();
-    if (isset($_COOKIE['time'])) {
-        $time = $_SERVER['REQUEST_TIME'];
-        if ($time - $_COOKIE['time'] > $timeOut) {
-            session_unset();
-            session_destroy();
-            session_start();
-        } else {
-            $_COOKIE['time'] = $time;
-            $loggedIn = true;
+    if (isset($_SESSION['id'])) {
+        if (isset($_COOKIE['time'])) {
+            if (time() - $_COOKIE['time'] > $timeOut) {
+                session_unset();
+                session_destroy();
+                session_start();
+            } else {
+                setcookie("time", time(), 0, "/");
+                $loggedIn = true;
+            }
         }
     }
     ?>
