@@ -1,32 +1,23 @@
 <?php
-require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/base/baseTemplate.php");
+
+require_once("base/baseTemplate.php");
 $getPageBase("PlaneR");
+
 ?>
 <h1 class="title">Seats</h1>
 
-<table style="margin:auto;">
-    <?php
-    for ($i = 0; $i < $rows; $i++) {
-        ?><tr>
-            <?php
-            for ($j = 0; $j < $seatsPerRow; $j++) {
-                if ($j == $seatsPerRow / 2) {
-                    ?>
-                    <td style="border:none;"></td>
-                <?php
+<div id="content"></div>
+<script>
+    $(document).ready(function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("content").innerHTML = this.responseText;
             }
-            ?>
-                <td class="green">
-                    <?= chr($baseChar + $j) . ($i + 1)
-                    ?>
-                </td>
-            <?php
-        }
-        ?>
-        </tr>
-    <?php
-}
-?>
-</table>
+        };
+        xhttp.open("GET", "actions/ajax/getSeats.php", true);
+        xhttp.send();
+    });
+</script>
 
 <?php closeHTML(); ?>

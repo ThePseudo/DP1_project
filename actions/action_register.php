@@ -1,5 +1,5 @@
 <?php
-require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/base/settings.php");
+require_once("../base/settings.php");
 
 $email = $_POST["Email"];
 $password = $_POST["Password"];

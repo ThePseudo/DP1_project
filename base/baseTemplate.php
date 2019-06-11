@@ -1,5 +1,6 @@
 <?php
-require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/base/settings.php");
+require_once("settings.php");
+
 $getPageBase = function ($title) use ($timeOut) {
     $loggedIn = false;
     session_start();
@@ -25,7 +26,7 @@ $getPageBase = function ($title) use ($timeOut) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><?= $title ?></title>
 
-        <link href=<?= "\"//" . $_SERVER['SERVER_NAME'] . "/base/style.css\"" ?> rel=" stylesheet">
+        <link href="base/style.css" rel=" stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,22 +53,15 @@ $getPageBase = function ($title) use ($timeOut) {
             <?php
             if (!$loggedIn) {
                 ?>
-                <a href=<?= "\"//" . $_SERVER['SERVER_NAME'] . "\"" ?>>
-                    Home</a>
-                <a href=<?= "\"//" . $_SERVER['SERVER_NAME'] . "/login.php\"" ?>>
-                    Log in</a>
-                <a href=<?= "\"//" . $_SERVER['SERVER_NAME'] . "/registration.php\"" ?>>
-                    Registration</a>
+                <a href="index.php">Home</a>
+                <a href="login.php">Log in</a>
+                <a href="registration.php">Registration</a>
             <?php
         } else {
             ?>
-                <a href=<?= "\"//" . $_SERVER['SERVER_NAME'] . "\"" ?>>
-                    Home</a>
-                <a href=<?= "\"//" . $_SERVER['SERVER_NAME'] . "/personal.php\"" ?>>
-                    Personal page</a>
-                <a href=<?= "\"//" . $_SERVER['SERVER_NAME'] .
-                            "/actions/action_logout.php\"" ?> style="bottom:0px">
-                    Logout</a>
+                <a href="index.php">Home</a>
+                <a href="personal.php">Personal page</a>
+                <a href="actions/action_logout.php">Logout</a>
             <?php
         }
         ?>
