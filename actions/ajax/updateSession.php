@@ -1,5 +1,5 @@
 <?php
-/*
+
 require_once("../../base/settings.php");
 
 session_start();
@@ -10,7 +10,7 @@ if (isset($_SESSION['id'])) {
             session_destroy();
             session_start();
         } else {
-            setcookie("time", time(), $timeOut, "/");
+            setcookie("time", time(), 0, "/");
         }
     }
 }

@@ -31,6 +31,6 @@ if ($user == null) {
         $time = $_SERVER['REQUEST_TIME'];
         $_SESSION['id'] = $user['id'];
         setcookie("time", time(), 0, "/");
-        // header("Location: ../");
+        header("Location: ../");
     }
 }
