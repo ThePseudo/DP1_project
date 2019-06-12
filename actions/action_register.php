@@ -3,17 +3,14 @@ require_once("../base/settings.php");
 
 $email = $_POST["Email"];
 $password = $_POST["Password"];
-$username = $_POST["Username"];
 
-if (!isset($email) || !isset($password) || !isset($username)) {
-    echo "Error: missing username, email or password";
+if (!isset($email) || !isset($password)) {
+    echo "Error: missing email or password";
     die;
 }
 
 #sanitize
 $email = htmlentities($email, ENT_HTML5, "UTF-8");
-$password = htmlentities($password, ENT_HTML5, "UTF-8");
-$username = htmlentities($username, ENT_HTML5, "UTF-8");
 
 # encrypt
 $password = password_hash($password, PASSWORD_DEFAULT);
@@ -31,8 +28,8 @@ try {
     die;
 }
 try {
-    $stmt = $conn->prepare("INSERT INTO plane.users(nickname, email, password) VALUES (:user, :email, :password);");
-    $stmt->execute([":email" => $email, ":user" => $username, ":password" => $password]);
+    $stmt = $conn->prepare("INSERT INTO users(email, password) VALUES (:email, :password);");
+    $stmt->execute([":email" => $email, ":password" => $password]);
     $user = $conn->lastInsertId();
     $stmt = null;
 } catch (PDOException $e) {
@@ -41,7 +38,7 @@ try {
 }
 
 try {
-    $stmt = $conn->prepare("SELECT * FROM plane.users WHERE id = :user");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id = :user");
     $stmt->execute([":user" => $user]);
     $user = $stmt->fetch();
     $stmt = null;

@@ -7,11 +7,6 @@ $getPageBase("PlaneR registration");
 <form action="/actions/action_register.php" method="POST">
     <div style="margin-top:40px" class="row">
         <div class="columnSmaller"></div>
-        <a style="text-align:right;" class="columnSmall">Username:</a>
-        <input type="text" name="Username" class="columnMedium" id="USERNAME">
-    </div>
-    <div style="margin-top:40px" class="row">
-        <div class="columnSmaller"></div>
         <a style="text-align:right;" class="columnSmall">E-mail:</a>
         <input type="email" name="Email" class="columnMedium" id="EMAIL">
     </div>
@@ -49,7 +44,6 @@ $getPageBase("PlaneR registration");
 <script>
     var emailOK = false;
     var passwordOK = false;
-    var userOK = false;
     $(document).ready(function() {
         var url = window.location.search;
         url = url.slice(1);
@@ -65,13 +59,7 @@ $getPageBase("PlaneR registration");
                 emailOK = true;
             }
         }
-
-        // check on username
-        if ($("#USERNAME").val() !== "") {
-            userOK = true;
-        }
-
-        document.getElementById("SUBMIT_BTN").disabled = !(emailOK && passwordOK && userOK);
+        document.getElementById("SUBMIT_BTN").disabled = !(emailOK && passwordOK);
     });
     $("#EMAIL").on("input", function() {
         if ($("#EMAIL").val() !== "") {
@@ -83,16 +71,7 @@ $getPageBase("PlaneR registration");
         } else {
             emailOK = false;
         }
-        document.getElementById("SUBMIT_BTN").disabled = !(emailOK && passwordOK && userOK);
-    });
-
-    $("#USERNAME").on("input", function() {
-        if ($(this).val() !== "") {
-            userOK = true;
-        } else {
-            userOK = false;
-        }
-        document.getElementById("SUBMIT_BTN").disabled = !(emailOK && passwordOK && userOK);
+        document.getElementById("SUBMIT_BTN").disabled = !(emailOK && passwordOK);
     });
 
     $("#PASSWORD").on("input", function() {
@@ -105,7 +84,7 @@ $getPageBase("PlaneR registration");
         } else {
             passwordOK = false;
         }
-        document.getElementById("SUBMIT_BTN").disabled = !(emailOK && passwordOK && userOK);
+        document.getElementById("SUBMIT_BTN").disabled = !(emailOK && passwordOK);
         if (passwordOK) {
             $("#error-msg").slideUp(500);
         } else {

@@ -9,8 +9,6 @@ if (!isset($email) || !isset($password)) {
 }
 
 $email = htmlentities($email, ENT_HTML5, "UTF-8");
-$password = htmlentities($password, ENT_HTML5, "UTF-8");
-
 
 try {
     $conn = new PDO($dbhost, $dbusername, $dbpassword);

@@ -31,9 +31,9 @@ $getPageBase = function ($title) use ($timeOut) {
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-            <![endif]-->
+                    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+                    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                    <![endif]-->
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -113,7 +113,7 @@ $getPageBase = function ($title) use ($timeOut) {
         </script>
         <noscript>
             <div class="noscriptmsg">
-                <h1 style="text-align:center;margin-top:50px">
+                <h1 style="text-align:center;margin-top:100px">
                     You don't have Javascript enabled.</h1>
                 <p style="text-align:center">
                     Please, enable Javascript to enjoy the website experience</p>
