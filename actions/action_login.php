@@ -13,7 +13,7 @@ $email = htmlentities($email, ENT_HTML5, "UTF-8");
 try {
     $conn = new PDO($dbhost, $dbusername, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT * FROM plane.users WHERE email = :email");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute([":email" => $email]);
     $user = $stmt->fetch();
     $stmt = null;

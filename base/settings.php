@@ -18,6 +18,9 @@ $dbhost = "mysql:host=localhost;dbname=plane";
 $dbusername = "s265340";
 $dbpassword = "ateroyst";
 
+$reserved = 0;
+$bought = 1;
+
 # session timeout: 2 mins in sec
 $timeOut = 120;
 
