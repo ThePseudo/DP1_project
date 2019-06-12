@@ -31,9 +31,9 @@ $getPageBase = function ($title) use ($timeOut) {
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            <![endif]-->
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -112,7 +112,7 @@ $getPageBase = function ($title) use ($timeOut) {
             }
 
             $(document).bind("change select keydown keypress keyup error", function(e) {
-                /*
+
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && (this.status == 200 || this.status == 0)) {
@@ -121,7 +121,7 @@ $getPageBase = function ($title) use ($timeOut) {
                 };
                 xhttp.open("POST", "actions/ajax/getSeats.php", true);
                 xhttp.send();
-                */
+
             });
         </script>
         <noscript>
