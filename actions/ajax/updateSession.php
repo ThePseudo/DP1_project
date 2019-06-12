@@ -9,6 +9,7 @@ if (isset($_SESSION['id'])) {
             session_unset();
             session_destroy();
             session_start();
+            echo "NOK";
         } else {
             setcookie("time", time(), 0, "/");
         }
