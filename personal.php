@@ -8,9 +8,14 @@ $getPageBase("PlaneR login");
 <div id="content"></div>
 <script>
     $(document).ready(function() {
-        updateContent("content");
+        updateContent("content", false);
     });
 </script>
 
+<script>
+    function onClick(object) {
+        console.log(object.innerText);
+    }
+</script>
 
 <?php closeHTML(); ?>

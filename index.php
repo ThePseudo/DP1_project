@@ -10,8 +10,11 @@ $getPageBase("PlaneR");
 <div id="content"></div>
 <script>
     $(document).ready(function() {
-        updateContent("content");
+        updateContent("content", true);
     });
 </script>
 
+<script>
+    function onClick(object) {}
+</script>
 <?php closeHTML(); ?>
