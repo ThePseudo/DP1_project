@@ -35,10 +35,14 @@ try {
     $stmt->execute([":row" => $row, ":column" => $column]);
     $result = $stmt->fetch();
     if ($id != $result['userID']) {
-        $stmt = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, :reserved) ON DUPLICATE KEY UPDATE userID = :id");
-        $stmt->execute([":row" => $row, ":column" => $column, ":id" => $id, ":reserved" => $reserved]);
-        $numReservedSeats++;
-        echo "yellow";
+        if ($result['bought'] != 1) {
+            $stmt = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, :reserved) ON DUPLICATE KEY UPDATE userID = :id");
+            $stmt->execute([":row" => $row, ":column" => $column, ":id" => $id, ":reserved" => $reserved]);
+            $numReservedSeats++;
+            echo "yellow";
+        } else {
+            echo "red";
+        }
     } else {
         $stmt = $conn->prepare("DELETE FROM seats WHERE row = :row AND seat = :column");
         $stmt->execute([":row" => $row, ":column" => $column]);

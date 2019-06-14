@@ -18,11 +18,18 @@ function reserveSeat(seat, warningMessenger) {
             if (returnedData == "green") {
                 $(warningMessenger).html("Reservation freed!");
                 $(warningMessenger).removeClass("yellow");
+                $(warningMessenger).removeClass("red");
                 $(warningMessenger).addClass("green");
-            } else {
+            } else if (returnedData == "yellow") {
                 $(warningMessenger).html("Reservation stored!");
                 $(warningMessenger).removeClass("green");
+                $(warningMessenger).removeClass("red");
                 $(warningMessenger).addClass("yellow");
+            } else if (returnedData == "red") {
+                $(warningMessenger).html("Impossible: this seat was already purchased!");
+                $(warningMessenger).removeClass("green");
+                $(warningMessenger).removeClass("yellow");
+                $(warningMessenger).addClass("red");
             }
             $(warningMessenger).css("display", "block");
             seat.className = returnedData;
