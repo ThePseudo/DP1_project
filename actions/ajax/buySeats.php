@@ -18,28 +18,23 @@ try {
     $conn = new PDO($dbhost, $dbusername, $dbpassword);
     $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
     $conn->beginTransaction();
-    /*
-    $stmt = $conn->prepare("SELECT * FROM seats WHERE row = :row AND seat = :column");
-    $stmt->execute([":row" => $row, ":column" => $column]);
-    $result = $stmt->fetch();
-    if ($id != $result['userID']) {
-        $stmt = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, 0) ON DUPLICATE KEY UPDATE userID = :id");
-        $stmt->execute([":row" => $row, ":column" => $column, ":id" => $id]);
-        echo "yellow";
+
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM seats WHERE userID = :id AND bought = :reserved");
+    $stmt->execute([":id" => $id, ":reserved" => $reserved]);
+    $result = $stmt->fetch()[0];
+    if ($result != $numReservedSeats) {
+        echo "Someone stole your seats. We're sorry, try again with new seats.";
     } else {
-        $stmt = $conn->prepare("DELETE FROM seats WHERE row = :row AND seat = :column");
-        $stmt->execute([":row" => $row, ":column" => $column]);
-        echo "green";
+        $stmt = $conn->prepare("UPDATE seats SET bought = :bought WHERE userID = :id AND bought = :reserved");
+        $stmt->execute([":id" => $id, ":bought" => $bought, ":reserved" => $reserved]);
+        echo "Purchase done!";
     }
-    */
+
     $conn->commit();
     $stmt = null;
     $conn = null;
     $result = null;
-    $_SESSION["reserved"] = 0;
 } catch (PDOException $e) {
     echo "Database error: " . $e->getMessage();
     die;
 }
-
-echo "Purchase done!";

@@ -100,14 +100,14 @@ if ($isHome == "true") :
 
         <div class="rowSmall">
             <div class="columnSmallMedium">
-                <a style="font-size: 20px">Total seats:</a>
+                <a style="font-size: 20px; padding:2px;">Total seats:</a>
                 <a style="font-size: 20px"> <?= ($totalSeats) ?></a>
             </div>
         </div>
         <div class="rowSmall">
 
             <div class="columnSmallMedium">
-                <a class="green" style="font-size: 20px">Free seats:</a>
+                <a class="greenT" style="font-size: 20px; padding:2px;">Free seats:</a>
                 <a style="font-size: 20px"> <?= ($totalSeats - $totalBought - $totalReserved) ?></a>
             </div>
         </div>
@@ -123,13 +123,13 @@ if ($isHome == "true") :
 
         <div class="rowSmall">
             <div class="columnSmallMedium">
-                <a class="orange" style="font-size: 20px">Reserved seats:</a>
+                <a class="orangeT" style="font-size: 20px; padding:2px;">Reserved seats:</a>
                 <a style="font-size: 20px"> <?= ($totalReserved) ?></a>
             </div>
         </div>
         <div class="rowSmall">
             <div class="columnSmallMedium">
-                <a class="red" style="font-size: 20px">Purchased seats:</a>
+                <a class="redT" style="font-size: 20px; padding:2px;">Purchased seats:</a>
                 <a style="font-size: 20px"> <?= ($totalBought) ?></a>
             </div>
         </div>

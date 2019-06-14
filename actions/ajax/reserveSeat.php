@@ -35,19 +35,20 @@ try {
     $stmt->execute([":row" => $row, ":column" => $column]);
     $result = $stmt->fetch();
     if ($id != $result['userID']) {
-        $stmt = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, 0) ON DUPLICATE KEY UPDATE userID = :id");
-        $stmt->execute([":row" => $row, ":column" => $column, ":id" => $id]);
+        $stmt = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, :reserved) ON DUPLICATE KEY UPDATE userID = :id");
+        $stmt->execute([":row" => $row, ":column" => $column, ":id" => $id, ":reserved" => $reserved]);
+        $numReservedSeats++;
         echo "yellow";
     } else {
         $stmt = $conn->prepare("DELETE FROM seats WHERE row = :row AND seat = :column");
         $stmt->execute([":row" => $row, ":column" => $column]);
         echo "green";
+        $numReservedSeats--;
     }
     $conn->commit();
     $stmt = null;
     $conn = null;
     $result = null;
-    $numReservedSeats++;
     $_SESSION["reserved"] = $numReservedSeats;
 } catch (PDOException $e) {
     echo "Database error: " . $e->getMessage();
