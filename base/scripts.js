@@ -16,17 +16,17 @@ function reserveSeat(seat, warningMessenger) {
     },
         function (returnedData) {
             if (returnedData == "green") {
-                $(warningMessenger).html("Reservation freed!");
+                $(warningMessenger).html("Reservation freed successfully!");
                 $(warningMessenger).removeClass("yellow");
                 $(warningMessenger).removeClass("red");
                 $(warningMessenger).addClass("green");
             } else if (returnedData == "yellow") {
-                $(warningMessenger).html("Reservation stored!");
+                $(warningMessenger).html("Seat reserved successfully!");
                 $(warningMessenger).removeClass("green");
                 $(warningMessenger).removeClass("red");
                 $(warningMessenger).addClass("yellow");
             } else if (returnedData == "red") {
-                $(warningMessenger).html("Impossible: this seat was already purchased!");
+                $(warningMessenger).html("Impossible: this seat has already been purchased!");
                 $(warningMessenger).removeClass("green");
                 $(warningMessenger).removeClass("yellow");
                 $(warningMessenger).addClass("red");
