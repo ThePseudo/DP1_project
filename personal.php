@@ -18,21 +18,11 @@ $getPageBase("PlaneR login");
     });
 
     function onClick(object) {
-        if (object.className == "yellow") {
-            $("#msg").html("Reservation freed!");
-            $("#msg").removeClass("yellow");
-            $("#msg").addClass("green");
-        } else {
-            $("#msg").html("Reservation stored!");
-            $("#msg").removeClass("green");
-            $("#msg").addClass("yellow");
-        }
-        reserveSeat(object);
-        $("#msg").css("display", "block");
+        reserveSeat(object, "#msg");
     }
 
-    function buySeats() {
-        buySeats();
+    function buy() {
+        buySeats("content", "#msg");
     }
 </script>
 

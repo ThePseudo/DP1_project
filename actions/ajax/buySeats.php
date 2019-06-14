@@ -1,10 +1,7 @@
 <?php
 require_once("../../base/settings.php");
 session_start();
-if (!isset($_POST["seatID"])) {
-    echo "NO INNER TEXT!";
-    die;
-}
+
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
 } else {
@@ -21,6 +18,7 @@ try {
     $conn = new PDO($dbhost, $dbusername, $dbpassword);
     $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
     $conn->beginTransaction();
+    /*
     $stmt = $conn->prepare("SELECT * FROM seats WHERE row = :row AND seat = :column");
     $stmt->execute([":row" => $row, ":column" => $column]);
     $result = $stmt->fetch();
@@ -33,13 +31,15 @@ try {
         $stmt->execute([":row" => $row, ":column" => $column]);
         echo "green";
     }
+    */
     $conn->commit();
     $stmt = null;
     $conn = null;
     $result = null;
-    $numReservedSeats++;
-    $_SESSION["reserved"] = $numReservedSeats;
+    $_SESSION["reserved"] = 0;
 } catch (PDOException $e) {
     echo "Database error: " . $e->getMessage();
     die;
 }
+
+echo "Purchase done!";
