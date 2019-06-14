@@ -3,7 +3,8 @@ require_once("settings.php");
 
 $getPageBase = function ($title) use ($timeOut) {
     $loggedIn = false;
-    session_start();
+    if (session_status() == PHP_SESSION_NONE)
+        session_start();
     if (isset($_SESSION['id'])) {
         if (isset($_COOKIE['time'])) {
             if (time() - $_COOKIE['time'] > $timeOut) {
@@ -31,9 +32,9 @@ $getPageBase = function ($title) use ($timeOut) {
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-            <![endif]-->
+                            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+                            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                            <![endif]-->
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="base/scripts.js"></script>

@@ -161,6 +161,12 @@ body {
         padding: 10px;
     }
 
+    .columnSmallerSmall {
+        float: left;
+        width: 10%;
+        padding: 10px;
+    }
+
     .columnSmall {
         float: left;
         width: 20%;
@@ -204,8 +210,14 @@ body {
         float: left;
         width: 5%;
         padding: 10px;
-      }
-    
+    }
+
+    .columnSmallerSmall {
+        float: left;
+        width: 30%;
+        padding: 10px;
+    }
+
     .columnSmall {
         float: left;
         width: 30%;
