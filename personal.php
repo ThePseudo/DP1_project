@@ -14,8 +14,19 @@ $getPageBase("PlaneR login");
 
 <script>
     function onClick(object) {
-        console.log(object.innerText);
+        reserveSeat(object);
     }
 </script>
+
+<div class="row" style="margin-top: 20px">
+    <div class="columnSmallest"></div>
+    <div class="columnSmallest"></div>
+    <div class="columnSmallest"></div>
+    <div class="columnSmallest"></div>
+    <div class="columnSmallest"></div>
+    <div class="columnSmallest"></div>
+    <div class="columnSmallest"></div>
+    <button class="button" onclick="refresh()">Refresh</button>
+</div>
 
 <?php closeHTML(); ?>

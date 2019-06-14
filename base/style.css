@@ -145,6 +145,10 @@ body {
 
 @media screen and (min-width: 769px) {
 
+    .rowSmall:after {
+        content: "";
+    }
+
     .columnSmallest {
         float: left;
         width: 5%;
@@ -183,6 +187,13 @@ body {
 }
 
 @media screen and (max-width: 769px) {
+
+    .rowSmall:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
     .columnSmallest {
         float: left;
         width: 0%;
@@ -203,10 +214,8 @@ body {
 
     .columnSmallMedium {
         float: left;
-        width: 49%;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 5px;
+        width: 55%;
+        padding: 10px;
     }
 
     .columnMedium {
@@ -229,6 +238,7 @@ body {
     padding: 10px;
     border: 1px solid rgb(143, 234, 255);
     transition-duration: 0.2s;
+    cursor: pointer;
 }
 
 .button:hover {

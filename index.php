@@ -13,8 +13,4 @@ $getPageBase("PlaneR");
         updateContent("content", true);
     });
 </script>
-
-<script>
-    function onClick(object) {}
-</script>
 <?php closeHTML(); ?>

@@ -19,3 +19,17 @@ function updateContent(id, isHome) {
     );
 
 }
+
+function reserveSeat(seat) {
+    $.post("actions/ajax/reserveSeat.php", {
+        seatID: seat.innerText,
+    },
+        function (returnedData) {
+            console.log(returnedData);
+            seat.className = returnedData;
+        });
+}
+
+function refresh() {
+    location.reload();
+}

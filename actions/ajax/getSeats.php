@@ -2,6 +2,7 @@
 require_once("../../base/settings.php");
 session_start();
 $id = -1;
+$isHome = false;
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
 }
@@ -39,34 +40,38 @@ try {
                         <td style="border:none;"></td>
                     <?php
                 endif;
+                $found = false;
                 foreach ($seats as $dataEntry) {
                     if ($dataEntry["row"] == $i && $dataEntry["seat"] == $j) {
+                        $found = true;
                         if ($dataEntry["bought"] == $bought) {
                             $totalBought++;
                             ?>
-                                <td class="red" onclick="javascript:onClick(this)">
+                                <td class="red" style="cursor: pointer" onclick="javascript:onClick(this)">
                                 <?php
                             } else {
                                 $totalReserved++;
                                 if ($id == $dataEntry["userID"]) {
                                     $ownSeats++;
                                     ?>
-                                    <td class="yellow" onclick="javascript:onClick(this)">
+                                    <td class="yellow" style="cursor: pointer" onclick="javascript:onClick(this)">
                                     <?php
                                 } else {
 
                                     ?>
-                                    <td class="orange" onclick="javascript:onClick(this)">
+                                    <td class="orange" style="cursor: pointer" onclick="javascript:onClick(this)">
                                     <?php
                                 }
                             }
                             break; #optimization
-                        } else {
-                            ?>
-                            <td class="green" onclick="javascript:onClick(this)">
-                            <?php
                         }
                     }
+                    if (!$found) {
+                        ?>
+                        <td class="green" style="cursor: pointer" onclick="javascript:onClick(this)">
+                        <?php
+                    }
+                    $found = false;
                     ?>
                         <?= chr($baseChar + $j) . ($i + 1) ?>
                     </td>
@@ -82,7 +87,7 @@ try {
 <?php
 $_SESSION['reserved'] = $ownSeats;
 
-if ($isHome == "true") {
+if ($isHome == "true") :
     ?>
     <div class="row" style="margin-top:20px;">
         <div class="columnSmallest"></div>
@@ -93,13 +98,18 @@ if ($isHome == "true") {
         <div class="columnSmallest"></div>
         <div class="columnSmallest"></div>
 
-        <div class="columnSmallMedium">
-            <a style="font-size: 20px">Total seats:</a>
-            <a style="font-size: 20px"> <?= ($totalSeats) ?></a>
+        <div class="rowSmall">
+            <div class="columnSmallMedium">
+                <a style="font-size: 20px">Total seats:</a>
+                <a style="font-size: 20px"> <?= ($totalSeats) ?></a>
+            </div>
         </div>
-        <div class="columnSmallMedium">
-            <a class="green" style="font-size: 20px">Free seats:</a>
-            <a style="font-size: 20px"> <?= ($totalSeats - $totalBought - $totalReserved) ?></a>
+        <div class="rowSmall">
+
+            <div class="columnSmallMedium">
+                <a class="green" style="font-size: 20px">Free seats:</a>
+                <a style="font-size: 20px"> <?= ($totalSeats - $totalBought - $totalReserved) ?></a>
+            </div>
         </div>
     </div>
     <div class="row" style="margin-top:20px;">
@@ -111,14 +121,19 @@ if ($isHome == "true") {
         <div class="columnSmallest"></div>
         <div class="columnSmallest"></div>
 
-        <div class="columnSmallMedium">
-            <a class="orange" style="font-size: 20px">Reserved seats:</a>
-            <a style="font-size: 20px"> <?= ($totalReserved) ?></a>
+        <div class="rowSmall">
+            <div class="columnSmallMedium">
+                <a class="orange" style="font-size: 20px">Reserved seats:</a>
+                <a style="font-size: 20px"> <?= ($totalReserved) ?></a>
+            </div>
         </div>
-        <div class="columnSmallMedium" style="margin-left:5px">
-            <a class="red" style="font-size: 20px">Purchased seats:</a>
-            <a style="font-size: 20px"> <?= ($totalBought) ?></a>
+        <div class="rowSmall">
+            <div class="columnSmallMedium">
+                <a class="red" style="font-size: 20px">Purchased seats:</a>
+                <a style="font-size: 20px"> <?= ($totalBought) ?></a>
+            </div>
         </div>
     </div>
 <?php
-}
+endif;
+?>
