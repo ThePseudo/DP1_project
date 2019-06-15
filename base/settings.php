@@ -14,7 +14,7 @@ if (!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on") {
 
 
 # DB settings
-$dbhost = "mysql:host=localhost;dbname=s265340";
+$dbhost = "mysql:host=localhost;dbname=plane";
 $dbusername = "s265340";
 $dbpassword = "ateroyst";
 
