@@ -45,10 +45,13 @@ function buySeats(container, warningMessenger) {
         function (returnedData) {
             console.log(returnedData);
             updateContent(container, false);
-            $(warningMessenger).html(returnedData);
-            $(warningMessenger).addClass("orange"); // using orange since red might mean error
-            $(warningMessenger).removeClass("green");
-            $(warningMessenger).removeClass("yellow");
-            $(warningMessenger).css("display", "block");
+            if (returnedData != "ERROR") {
+                $(warningMessenger).html(returnedData);
+                $(warningMessenger).addClass("orange"); // using orange since red might mean error
+                $(warningMessenger).removeClass("green");
+                $(warningMessenger).removeClass("yellow");
+                $(warningMessenger).css("display", "block");
+            }
+            window.location.href = "./personal.php?message=" + encodeURI("Error in buying seats. Someone stole them.");
         });
 }

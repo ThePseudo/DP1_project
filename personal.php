@@ -15,6 +15,15 @@ $getPageBase("PlaneR login");
 <script>
     $(document).ready(function() {
         updateContent("content", false);
+        var url = window.location.search;
+        url = url.slice(1);
+        if (url.slice(0, 8) === "message=") {
+            url = url.slice(8);
+            url = url.split("%20").join(" ");
+            $("#msg").html(url);
+            $("#msg").addClass("red");
+            $("#msg ").css("display", "block");
+        }
     });
 
     function onClick(object) {

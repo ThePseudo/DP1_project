@@ -23,9 +23,9 @@ try {
     $stmt->execute([":id" => $id, ":reserved" => $reserved]);
     $result = $stmt->fetch()[0];
     if ($result != $numReservedSeats) {
-        $stmt = $conn->prepare("DELETE FROM seats WHERE userID = :id");
-        $stmt->execute([":id" => $id]);
-        echo "Someone stole your seats. We're sorry, try again with new seats.";
+        $stmt = $conn->prepare("DELETE FROM seats WHERE userID = :id AND bought = :reserved");
+        $stmt->execute([":id" => $id, ":reserved" => $reserved]);
+        echo "ERROR";
     } else {
         $stmt = $conn->prepare("UPDATE seats SET bought = :bought WHERE userID = :id AND bought = :reserved");
         $stmt->execute([":id" => $id, ":bought" => $bought, ":reserved" => $reserved]);
@@ -37,6 +37,6 @@ try {
     $conn = null;
     $result = null;
 } catch (PDOException $e) {
-    echo "Database error: " . $e->getMessage();
+    echo "ERROR";
     die;
 }
