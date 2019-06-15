@@ -1,6 +1,15 @@
 <?php
 require_once("settings.php");
 
+function cookiesEnabled()
+{
+    setcookie("testCookies", "true", time() + 3600, "/");
+    if (count($_COOKIE) > 0) {
+        return true;
+    }
+    return false;
+}
+
 $getPageBase = function ($title) use ($timeOut) {
     $loggedIn = false;
     if (session_status() == PHP_SESSION_NONE)
@@ -32,9 +41,9 @@ $getPageBase = function ($title) use ($timeOut) {
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-                                                                                                                                                                                            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-                                                                                                                                                                                            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-                                                                                                                                                                                            <![endif]-->
+                                                                                                                                                                                                                                                                                                                                                                                            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+                                                                                                                                                                                                                                                                                                                                                                                            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                                                                                                                                                                                                                                                                                                                                                                                            <![endif]-->
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="base/scripts.js"></script>
@@ -71,16 +80,28 @@ $getPageBase = function ($title) use ($timeOut) {
         </div>
 
         <script>
+            function areCookiesEnabled() {
+                try {
+                    document.cookie = 'cookietest=1';
+                    var cookiesEnabled = document.cookie.indexOf('cookietest=') !== -1;
+                    document.cookie = 'cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT';
+                    return cookiesEnabled;
+                } catch (e) {
+                    return false;
+                }
+            }
+
             $(document).ready(function() {
                 $(window).resize();
                 $("#main").css("display", "block");
-                if (!navigator.cookieEnabled) {
+                if (!areCookiesEnabled()) {
                     var invite =
                         "<h1 style=\"text-align:center;margin-top:50px\">You don't have cookies enabled.</h1>" +
                         "<p style=\"text-align:center\">Please, enable cookies to enjoy the website experience</p>"
-                    document.getElementById("main").innerHTML = invite;
+                    $("#main").html(invite);
                 }
-            })
+
+            });
 
             $(window).resize(function() {
                 if ($(window).width() > 768) {
