@@ -84,10 +84,6 @@ body {
         width: 0px;
     }
 
-    .main {
-        position: initial;
-    }
-
 }
 
 @media screen and (min-width: 769px) {
@@ -103,8 +99,7 @@ body {
         width: 15%;
     }
 
-    .main {
-        position: fixed;
+    .mainBG {
         margin-left: 15%; /* Same as the width of the sidenav + 2*/
     }
 }
@@ -130,7 +125,7 @@ body {
     margin-left: 50px;
   }
 
-  .main {
+  .mainBG {
     left:0;
     top:0;
     bottom:0;
@@ -138,12 +133,25 @@ body {
     height: 100%;
     margin-top: 70px;
     transition: 0.5s;
+    position: fixed;
+    background-color: rgba(227, 255, 255, 0.7);
+    z-index: -1;
+    padding-bottom: 20px;
+    transition: 0.5s;
+  }
+
+  .main {
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    position: relative;
+    height: 100%;
+    margin-top: 70px;
     word-wrap: normal;
     word-break: normal;
     display: none;
-    z-index: -1;
-    padding-bottom: 20px;
-    background-color: rgba(227, 255, 255, 0.7);
+    
   }
 
   .openNavButton {

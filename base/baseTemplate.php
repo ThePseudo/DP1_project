@@ -41,9 +41,9 @@ $getPageBase = function ($title) use ($timeOut) {
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-                                                                                                                                                                                                                                                                                                                                                                                            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-                                                                                                                                                                                                                                                                                                                                                                                            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-                                                                                                                                                                                                                                                                                                                                                                                            <![endif]-->
+                                                                                                                                                                                                                                                                                                                                                                                                            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+                                                                                                                                                                                                                                                                                                                                                                                                            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                                                                                                                                                                                                                                                                                                                                                                                                            <![endif]-->
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="base/scripts.js"></script>
@@ -108,13 +108,11 @@ $getPageBase = function ($title) use ($timeOut) {
                     document.getElementById("sidenav").style.width = "15%";
                     document.getElementById("navOpener").style.visibility = "hidden";
                     document.getElementById("navOpener").style.marginLeft = "-2000px";
-                    document.getElementById("main").style.marginLeft = "15%";
                     document.getElementById("sidenav").style.opacity = "0.9";
                 } else {
                     document.getElementById("sidenav").style.width = "0%";
                     document.getElementById("navOpener").style.visibility = "visible";
                     document.getElementById("navOpener").style.marginLeft = "15px";
-                    document.getElementById("main").style.marginLeft = "0px";
                     document.getElementById("sidenav").style.opacity = "1";
 
                 }
@@ -161,6 +159,9 @@ $getPageBase = function ($title) use ($timeOut) {
                     Please, enable Javascript to enjoy the website experience</p>
             </div>
         </noscript>
+        <div class="mainBG">
+        </div>
+
         <div id="main" class="main">
         <?php
     };
