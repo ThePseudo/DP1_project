@@ -15,8 +15,8 @@ if (isset($_SESSION['id'])) {
 $id = $_SESSION["id"];
 $numReservedSeats = $_SESSION["reserved"];
 
-
-$digits = str_split($_POST["seatID"]);
+$digits = htmlentities($_POST["seatID"]);
+$digits = str_split($digits);
 $column = $digits[0];
 $column = ord($column) - $baseChar;
 $row = 0;
