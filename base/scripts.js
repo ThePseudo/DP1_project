@@ -19,16 +19,19 @@ function reserveSeat(seat, warningMessenger) {
                 $(warningMessenger).html("Reservation freed successfully!");
                 $(warningMessenger).removeClass("yellow");
                 $(warningMessenger).removeClass("red");
+                $(warningMessenger).removeClass("orange");
                 $(warningMessenger).addClass("green");
             } else if (returnedData == "yellow") {
                 $(warningMessenger).html("Seat reserved successfully!");
                 $(warningMessenger).removeClass("green");
                 $(warningMessenger).removeClass("red");
+                $(warningMessenger).removeClass("orange");
                 $(warningMessenger).addClass("yellow");
             } else if (returnedData == "red") {
                 $(warningMessenger).html("Impossible: this seat has already been purchased!");
                 $(warningMessenger).removeClass("green");
                 $(warningMessenger).removeClass("yellow");
+                $(warningMessenger).removeClass("orange");
                 $(warningMessenger).addClass("red");
             }
             $(warningMessenger).css("display", "block");
@@ -51,6 +54,8 @@ function buySeats(container, warningMessenger) {
                 $(warningMessenger).removeClass("green");
                 $(warningMessenger).removeClass("yellow");
                 $(warningMessenger).css("display", "block");
+                window.location.href = "./personal.php?success=" + encodeURI("Purchase done");
+                return;
             }
             window.location.href = "./personal.php?message=" + encodeURI("Error in buying seats. Someone stole them.");
         });

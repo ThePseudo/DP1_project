@@ -24,6 +24,13 @@ $getPageBase("PlaneR login");
             $("#msg").addClass("red");
             $("#msg ").css("display", "block");
         }
+        if (url.slice(0, 8) === "success=") {
+            url = url.slice(8);
+            url = url.split("%20").join(" ");
+            $("#msg").html(url);
+            $("#msg").addClass("orange");
+            $("#msg ").css("display", "block");
+        }
     });
 
     function onClick(object) {
