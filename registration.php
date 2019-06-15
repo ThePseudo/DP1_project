@@ -4,7 +4,7 @@ $getPageBase("PlaneR registration");
 ?>
 <h1 class="title">Registration</h1>
 
-<form action="/actions/action_register.php" method="POST">
+<form action="actions/action_register.php" method="POST">
     <div style="margin-top:40px" class="row">
         <div class="columnSmaller"></div>
         <a style="text-align:right;" class="columnSmall">E-mail:</a>

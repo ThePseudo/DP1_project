@@ -68,7 +68,7 @@ body {
     word-wrap: normal;
     word-break: normal;
     display: block;
-    
+    font-size: 20px;
 }
   
 @media screen and (max-width: 768px) {
@@ -290,6 +290,10 @@ body {
     transition-duration: 0.2s;
 }
 
+.button:disabled {
+    opacity: 0.3;
+}
+
 table tr td {
     border: 1px solid rgb(160, 160, 160);
     padding: 11px;
@@ -330,4 +334,16 @@ table tr td {
 
 .redT {
     background-color: rgba(255, 128, 128, 0.7);
+}
+
+.loggedInText {
+    margin-top: -40px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    text-decoration: none;
+    word-wrap: normal;
+    word-break: normal;
+    display: block;    color: rgb(101, 168, 184);
+    font-size: 20px;
 }

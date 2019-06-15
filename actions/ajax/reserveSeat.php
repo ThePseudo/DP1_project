@@ -35,7 +35,7 @@ try {
     $stmt->execute([":row" => $row, ":column" => $column]);
     $result = $stmt->fetch();
     if ($id != $result['userID']) {
-        if ($result['bought'] != 1) {
+        if ($result['bought'] != $bought) {
             $stmt = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, :reserved) ON DUPLICATE KEY UPDATE userID = :id");
             $stmt->execute([":row" => $row, ":column" => $column, ":id" => $id, ":reserved" => $reserved]);
             $numReservedSeats++;
@@ -44,10 +44,14 @@ try {
             echo "red";
         }
     } else {
-        $stmt = $conn->prepare("DELETE FROM seats WHERE row = :row AND seat = :column");
-        $stmt->execute([":row" => $row, ":column" => $column]);
-        echo "green";
-        $numReservedSeats--;
+        if ($result['bought'] != $bought) {
+            $stmt = $conn->prepare("DELETE FROM seats WHERE row = :row AND seat = :column AND bought = :reserved"); #double check
+            $stmt->execute([":row" => $row, ":column" => $column, ":reserved" => $reserved]);
+            echo "green";
+            $numReservedSeats--;
+        } else {
+            echo "red";
+        }
     }
     $conn->commit();
     $stmt = null;

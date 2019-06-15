@@ -4,7 +4,7 @@ $getPageBase("PlaneR login");
 ?>
 <h1 class="title">Login</h1>
 
-<form action="/actions/action_login.php" method="POST">
+<form action="actions/action_login.php" method="POST">
     <div style="margin-top:40px" class="row">
         <div class="columnSmaller"></div>
         <a style="text-align:right;" class="columnSmall">E-mail:</a>

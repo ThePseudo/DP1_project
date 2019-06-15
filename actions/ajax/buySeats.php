@@ -23,6 +23,8 @@ try {
     $stmt->execute([":id" => $id, ":reserved" => $reserved]);
     $result = $stmt->fetch()[0];
     if ($result != $numReservedSeats) {
+        $stmt = $conn->prepare("DELETE FROM seats WHERE userID = :id");
+        $stmt->execute([":id" => $id]);
         echo "Someone stole your seats. We're sorry, try again with new seats.";
     } else {
         $stmt = $conn->prepare("UPDATE seats SET bought = :bought WHERE userID = :id AND bought = :reserved");

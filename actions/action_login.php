@@ -30,7 +30,11 @@ if ($user == null) {
         session_start();
         $time = $_SERVER['REQUEST_TIME'];
         $_SESSION['id'] = $user['id'];
+        $_SESSION['email'] = $user['email'];
         setcookie("time", time(), 0, "/");
         header("Location: ../");
+    } else {
+        header("Location: " . "../login.php?message=fail");
+        die;
     }
 }
