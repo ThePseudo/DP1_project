@@ -19,7 +19,7 @@ try {
     $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
     $conn->beginTransaction();
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM seats WHERE userID = :id AND bought = :reserved");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM seats WHERE userID = :id AND bought = :reserved FOR UPDATE");
     $stmt->execute([":id" => $id, ":reserved" => $reserved]);
     $result = $stmt->fetch()[0];
     if ($result != $numReservedSeats) {

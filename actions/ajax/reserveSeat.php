@@ -31,7 +31,7 @@ try {
     $conn = new PDO($dbhost, $dbusername, $dbpassword);
     $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
     $conn->beginTransaction();
-    $stmt = $conn->prepare("SELECT * FROM seats WHERE row = :row AND seat = :column");
+    $stmt = $conn->prepare("SELECT * FROM seats WHERE row = :row AND seat = :column FOR UPDATE");
     $stmt->execute([":row" => $row, ":column" => $column]);
     $result = $stmt->fetch();
     if ($id != $result['userID']) {
