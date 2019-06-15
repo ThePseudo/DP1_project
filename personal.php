@@ -28,10 +28,22 @@ $getPageBase("PlaneR login");
             url = url.slice(8);
             url = url.split("%20").join(" ");
             $("#msg").html(url);
+            $("#msg").addClass("green");
+            $("#msg ").css("display", "block");
+        }
+
+        if (url.slice(0, 8) === "warning=") {
+            url = url.slice(8);
+            url = url.split("%20").join(" ");
+            $("#msg").html(url);
             $("#msg").addClass("orange");
             $("#msg ").css("display", "block");
         }
     });
+
+    function refresh() {
+        window.location.href = "personal.php";
+    }
 
     function onClick(object) {
         reserveSeat(object, "#msg");

@@ -39,24 +39,28 @@ function reserveSeat(seat, warningMessenger) {
         });
 }
 
-function refresh() {
-    location.reload();
-}
-
 function buySeats(container, warningMessenger) {
     $.post("actions/ajax/buySeats.php", {},
         function (returnedData) {
-            console.log(returnedData);
             updateContent(container, false);
-            if (returnedData != "ERROR") {
-                $(warningMessenger).html(returnedData);
+            if (returnedData == "NO_SEATS") {
                 $(warningMessenger).addClass("orange"); // using orange since red might mean error
                 $(warningMessenger).removeClass("green");
                 $(warningMessenger).removeClass("yellow");
                 $(warningMessenger).css("display", "block");
-                window.location.href = "./personal.php?success=" + encodeURI("Purchase done");
+                window.location.href = "./personal.php?warning=" + encodeURI("No seat was selected for reservation.");
                 return;
             }
+            if (returnedData != "ERROR") {
+                $(warningMessenger).html(returnedData);
+                $(warningMessenger).addClass("green"); // using orange since red might mean error
+                $(warningMessenger).removeClass("orange");
+                $(warningMessenger).removeClass("yellow");
+                $(warningMessenger).css("display", "block");
+                window.location.href = "./personal.php?success=" + encodeURI("Purchase done.");
+                return;
+            }
+
             window.location.href = "./personal.php?message=" + encodeURI("Error in buying seats. Someone stole them.");
         });
 }

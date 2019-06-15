@@ -14,6 +14,11 @@ $numReservedSeats = $_SESSION["reserved"];
 
 #TODO
 
+if ($numReservedSeats == 0) {
+    echo "NO_SEATS";
+    die;
+}
+
 try {
     $conn = new PDO($dbhost, $dbusername, $dbpassword);
     $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
