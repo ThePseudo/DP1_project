@@ -57,7 +57,7 @@ function buySeats(container, warningMessenger) {
                 $(warningMessenger).removeClass("orange");
                 $(warningMessenger).removeClass("yellow");
                 $(warningMessenger).css("display", "block");
-                window.location.href = "./personal.php?success=" + encodeURI("Purchase done.");
+                window.location.href = "./personal.php?success=" + encodeURI("Purchase done!");
                 return;
             }
 

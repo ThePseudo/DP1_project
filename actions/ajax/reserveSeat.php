@@ -28,16 +28,22 @@ foreach ($digits as $num) {
 $row = (int)$row - 1;
 
 try {
-    $conn = new PDO($dbhost, $dbusername, $dbpassword);
+    $options = [
+        PDO::ATTR_EMULATE_PREPARES   => false, // turn off emulation mode for "real" prepared statements
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
+    ];
+    $conn = new PDO($dbhost, $dbusername, $dbpassword, $options);
     $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
     $conn->beginTransaction();
     $stmt = $conn->prepare("SELECT * FROM seats WHERE row = :row AND seat = :column FOR UPDATE");
+    $stmt2 = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, :reserved) ON DUPLICATE KEY UPDATE userID = :id2");
+    $stmt3 = $conn->prepare("DELETE FROM seats WHERE row = :row AND seat = :column AND bought = :reserved"); #double check
     $stmt->execute([":row" => $row, ":column" => $column]);
     $result = $stmt->fetch();
     if ($id != $result['userID']) {
         if ($result['bought'] != $bought) {
-            $stmt = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, :reserved) ON DUPLICATE KEY UPDATE userID = :id");
-            $stmt->execute([":row" => $row, ":column" => $column, ":id" => $id, ":reserved" => $reserved]);
+            $stmt2->execute([":row" => $row, ":column" => $column, ":id" => $id, ":reserved" => $reserved, ":id2" => $id]);
             $numReservedSeats++;
             echo "yellow";
         } else {
@@ -45,8 +51,7 @@ try {
         }
     } else {
         if ($result['bought'] != $bought) {
-            $stmt = $conn->prepare("DELETE FROM seats WHERE row = :row AND seat = :column AND bought = :reserved"); #double check
-            $stmt->execute([":row" => $row, ":column" => $column, ":reserved" => $reserved]);
+            $stmt3->execute([":row" => $row, ":column" => $column, ":reserved" => $reserved]);
             echo "green";
             $numReservedSeats--;
         } else {

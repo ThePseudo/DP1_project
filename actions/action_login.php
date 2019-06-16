@@ -11,7 +11,12 @@ if (!isset($email) || !isset($password)) {
 $email = htmlentities($email, ENT_HTML5, "UTF-8");
 
 try {
-    $conn = new PDO($dbhost, $dbusername, $dbpassword);
+    $options = [
+        PDO::ATTR_EMULATE_PREPARES   => false, // turn off emulation mode for "real" prepared statements
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
+    ];
+    $conn = new PDO($dbhost, $dbusername, $dbpassword, $options);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute([":email" => $email]);

@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION['id'])) {
     header("Location: ./");
 }
-$getPageBase("PlaneR login");
+$getPageBase("PlaneR personal page");
 
 
 ?>

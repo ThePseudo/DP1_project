@@ -10,9 +10,7 @@ if (isset($_SESSION['id'])) {
     die;
 }
 $id = $_SESSION["id"];
-$numReservedSeats = $_SESSION["reserved"];
-
-#TODO
+$numReservedSeats = (int)$_SESSION["reserved"];
 
 if ($numReservedSeats == 0) {
     echo "NO_SEATS";
@@ -20,13 +18,18 @@ if ($numReservedSeats == 0) {
 }
 
 try {
-    $conn = new PDO($dbhost, $dbusername, $dbpassword);
+    $options = [
+        PDO::ATTR_EMULATE_PREPARES   => false, // turn off emulation mode for "real" prepared statements
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC //make the default fetch be an associative array
+    ];
+    $conn = new PDO($dbhost, $dbusername, $dbpassword, $options);
     $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
     $conn->beginTransaction();
 
     $stmt = $conn->prepare("SELECT COUNT(*) FROM seats WHERE userID = :id AND bought = :reserved FOR UPDATE");
     $stmt->execute([":id" => $id, ":reserved" => $reserved]);
-    $result = $stmt->fetch()[0];
+    $result = $stmt->fetch()["COUNT(*)"];
     if ($result != $numReservedSeats) {
         $stmt = $conn->prepare("DELETE FROM seats WHERE userID = :id AND bought = :reserved");
         $stmt->execute([":id" => $id, ":reserved" => $reserved]);

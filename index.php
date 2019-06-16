@@ -5,7 +5,7 @@ $getPageBase("PlaneR");
 
 ?>
 
-<h1 class="title">Seats</h1>
+<h1 class="title">Home</h1>
 
 <div id="content"></div>
 <script>
