@@ -4,10 +4,10 @@ session_start();
 $id = -1;
 $isHome = false;
 if (isset($_SESSION['id'])) {
-    $id = $_SESSION['id'];
+    $id = (int)$_SESSION['id'];
 }
 if (isset($_POST['home'])) {
-    $isHome = $_POST['home'];
+    $isHome = (bool)$_POST['home'];
 }
 $_SESSION['reserved'] = 0;
 $totalSeats = $seatsPerRow * $rows;
@@ -22,7 +22,6 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
     ];
     $conn = new PDO($dbhost, $dbusername, $dbpassword, $options);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT * FROM seats");
     $stmt->execute();
     $seats = $stmt->fetchAll();

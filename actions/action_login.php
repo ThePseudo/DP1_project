@@ -17,7 +17,6 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
     ];
     $conn = new PDO($dbhost, $dbusername, $dbpassword, $options);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute([":email" => $email]);
     $user = $stmt->fetch();

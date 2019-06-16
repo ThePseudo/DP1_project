@@ -9,7 +9,7 @@ if (isset($_SESSION['id'])) {
     header("Location: ../../");
     die;
 }
-$id = $_SESSION["id"];
+$id = (int)$_SESSION["id"];
 $numReservedSeats = (int)$_SESSION["reserved"];
 
 if ($numReservedSeats == 0) {

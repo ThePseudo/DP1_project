@@ -6,19 +6,19 @@ if (!isset($_POST["seatID"])) {
     die;
 }
 if (isset($_SESSION['id'])) {
-    $id = $_SESSION['id'];
+    (int)$id = $_SESSION['id'];
 } else {
     echo "NO SESSION!";
     header("Location: ../../");
     die;
 }
-$id = $_SESSION["id"];
-$numReservedSeats = $_SESSION["reserved"];
+
+$numReservedSeats = (int)$_SESSION["reserved"];
 
 $digits = htmlentities($_POST["seatID"]);
 $digits = str_split($digits);
 $column = $digits[0];
-$column = ord($column) - $baseChar;
+$column = (int)(ord($column) - $baseChar);
 $row = 0;
 foreach ($digits as $num) {
     if (is_numeric($num)) {
@@ -37,13 +37,12 @@ try {
     $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
     $conn->beginTransaction();
     $stmt = $conn->prepare("SELECT * FROM seats WHERE row = :row AND seat = :column FOR UPDATE");
-    $stmt2 = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, :reserved) ON DUPLICATE KEY UPDATE userID = :id2");
-    $stmt3 = $conn->prepare("DELETE FROM seats WHERE row = :row AND seat = :column AND bought = :reserved"); #double check
     $stmt->execute([":row" => $row, ":column" => $column]);
     $result = $stmt->fetch();
     if ($id != $result['userID']) {
         if ($result['bought'] != $bought) {
-            $stmt2->execute([":row" => $row, ":column" => $column, ":id" => $id, ":reserved" => $reserved, ":id2" => $id]);
+            $stmt = $conn->prepare("INSERT INTO seats(row, seat, userID, bought) VALUES (:row, :column, :id, :reserved) ON DUPLICATE KEY UPDATE userID = :id2");
+            $stmt->execute([":row" => $row, ":column" => $column, ":id" => $id, ":reserved" => $reserved, ":id2" => $id]);
             $numReservedSeats++;
             echo "yellow";
         } else {
@@ -51,7 +50,8 @@ try {
         }
     } else {
         if ($result['bought'] != $bought) {
-            $stmt3->execute([":row" => $row, ":column" => $column, ":reserved" => $reserved]);
+            $stmt = $conn->prepare("DELETE FROM seats WHERE row = :row AND seat = :column AND bought = :reserved"); #double check
+            $stmt->execute([":row" => $row, ":column" => $column, ":reserved" => $reserved]);
             echo "green";
             $numReservedSeats--;
         } else {
